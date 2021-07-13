@@ -19,7 +19,7 @@ services:
       - /usr/src/app/node_modules
     depends_on:
       - postgres
-    restart: on-failure
+    restart: always
   prod:
     container_name: ${APP_NAME}_prod
     image: ${APP_NAME}_prod:1.0.0
