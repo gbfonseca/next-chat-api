@@ -33,13 +33,27 @@ export class UserRepository
 
   async checkCredentials(credentialsDto: CredentialsDto): Promise<User> {
     const { email, password } = credentialsDto;
-    const user = await this.findOne({ email });
+    const user = await this.findOne(
+      { email },
+      {
+        select: this.getCols(this),
+      },
+    );
 
     if (user && (await user.checkPassword(password))) {
+      delete user.salt;
+      delete user.password;
+
       return user;
     } else {
       return null;
     }
+  }
+
+  private getCols<T>(repository: Repository<T>): (keyof T)[] {
+    return repository.metadata.columns.map(
+      (col) => col.propertyName,
+    ) as (keyof T)[];
   }
 
   private async hashPassword(password: string, salt: string): Promise<string> {

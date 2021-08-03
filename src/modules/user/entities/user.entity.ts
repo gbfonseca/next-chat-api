@@ -1,8 +1,11 @@
+import { Chat } from './../../chat/entities/chat.entity';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
@@ -23,11 +26,15 @@ export class User extends BaseEntity {
   @Column({ nullable: false, type: 'varchar' })
   email: string;
 
-  @Column({ nullable: false, type: 'varchar' })
+  @Column({ nullable: false, type: 'varchar', select: false })
   password: string;
 
-  @Column({ nullable: false, type: 'varchar' })
+  @Column({ nullable: false, type: 'varchar', select: false })
   salt: string;
+
+  @ManyToMany(() => Chat)
+  @JoinTable()
+  chats: Chat[];
 
   @CreateDateColumn()
   created_at: Date;

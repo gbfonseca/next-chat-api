@@ -3,6 +3,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ChatModule } from './modules/chat/chat.module';
+import { MessageModule } from './modules/message/message.module';
 import configuration from './configs/configuration';
 
 @Module({
@@ -28,6 +30,8 @@ import configuration from './configs/configuration';
     }),
     UserModule,
     AuthModule,
+    ChatModule,
+    MessageModule,
   ],
   controllers: [],
   providers: [],
